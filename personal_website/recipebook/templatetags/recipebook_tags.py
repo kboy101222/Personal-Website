@@ -34,18 +34,27 @@ def measurement(value, arg):
     else:
         whole_num = ""
 
-    amount = whole_num
-    amount += (
+    amount = (
         str(amount_fraction[0]) + "/" + str(amount_fraction[1])
         if amount_fraction[1] != 1 and arg > 1
         else str(amount_fraction[0])
     )
-    return (
-        amount
-        + " "
-        + measurement_formatting[value]
-        + ("s" if arg > 1 and arg != 0 and value != "amt" else "")
-    )
+    if arg.is_integer():
+        return (
+            amount
+            + " "
+            + measurement_formatting[value]
+            + ("s" if arg > 1 and arg != 0 and value != "amt" else "")
+        )
+    else:
+        return (
+            whole_num
+            + " "
+            + amount
+            + " "
+            + measurement_formatting[value]
+            + ("s" if arg > 1 and arg != 0 and value != "amt" else "")
+        )
 
 
 @register.filter
