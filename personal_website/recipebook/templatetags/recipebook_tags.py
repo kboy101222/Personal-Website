@@ -28,7 +28,14 @@ def measurement(value, arg):
         "not_set": "",
     }
     amount_fraction = arg.as_integer_ratio()
-    amount = (
+    whole_num = int(amount_fraction[0]/amount_fraction[1])
+    if whole_num >= 1:
+        whole_num = str(whole_num) + " "
+    else:
+        whole_num = ""
+
+    amount = whole_num
+    amount += (
         str(amount_fraction[0]) + "/" + str(amount_fraction[1])
         if amount_fraction[1] != 1 and arg > 1
         else str(amount_fraction[0])
