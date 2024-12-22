@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
 from .models import Ingredient
-from .models import Recipe
+from .models import Recipe, RecipeStep
 
 
 # Create your views here.
@@ -27,8 +27,9 @@ def recipe_list(request):
 def recipe(request, recipe_id):
     recipe_info = get_object_or_404(Recipe, pk=recipe_id)
     ingredients = Ingredient.objects.filter(recipe__exact=recipe_id)
+    recipe_steps = RecipeStep.objects.filter(recipe__exact=recipe_id)
     return render(
         request,
         template_name="recipebook/recipe.html",
-        context={"recipe_info": recipe_info, "ingredients": ingredients},
+        context={"recipe_info": recipe_info, "ingredients": ingredients, "recipe_steps": recipe_steps},
     )
