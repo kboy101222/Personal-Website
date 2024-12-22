@@ -71,4 +71,3 @@ INSTALLED_APPS += ["django_extensions"]
 
 # Your stuff...
 # ------------------------------------------------------------------------------
-INSTALLED_APPS += ["recipebook", "django_bootstrap_icons"]

@@ -1,11 +1,13 @@
 {% extends "recipebook/master.html" %}
 
+{% block title %} {{ recipe_info.recipe_name }} {% endblock title %}  
 {% block content %}
   {% load recipebook_tags %}
 
   <div class="container">
     <h3>{{ recipe_info.recipe_name }}</h3>
     <div class="containter" id="ingredient_list">
+      <h5>Ingredients</h5>
       <ul class="list-group">
         {% for ingredient in ingredients %}
           <li class="list-group-item">
@@ -19,6 +21,9 @@
           </li>
         {% endfor %}
       </ul>
+
+      <h5>Instructions</h5>
+
       {% comment %} Recipe Instructions {% endcomment %}
       <ul class="list-group">
         {% for step in recipe_steps %}
@@ -26,6 +31,7 @@
           <input class="form-check-input me-1" type="checkbox" id="step_{{ step.id }}" />
           <label class="form-check-label stretched-link" for="step_{{step.id}}">{{ step.description }}</label>
         </li>
+        {% endfor %}
       </ul>
     </div>
   </div>

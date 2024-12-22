@@ -9,9 +9,25 @@
 
   <div class="container">
     <h3>All Recipies:</h3>
-    <ul class="list-group">
+    <form action="{% url "recipebook:filtered_recipe_list" %}" method="post">
+      {% csrf_token %}
+      <div class="row">
+        <div id="filter-bar" class="col-9 form-floating">
+            <select class="form-select" id="recipe-type-select" name="type-selection">
+              {% comment %} <option selected value="all">All Recipes</option> {% endcomment %}
+              {% for type in recipe_types %}
+              <option value={{type.0}}>{{type.1}}</option>
+              {% endfor %}
+            </select>
+            <label for="recipe-type-select">Filter by recipe type</label>
+        </div>
+        <button type="submit" class="btn btn-primary col-2">Filter</button>
+      </div>
+    </form>
+    <br>
+    <ul class="list-group" id="recipe-list">
       {% for item in recipe_list %}
-        <a class="list-group-item list-group-item-action"
+        <a class="list-group-item list-group-item-action {{item.recipe_type}}"
            href="{% url "recipebook:recipe" item.id %}">{{ item.recipe_name }}
           {% if item.recipe_type != "not_set" %}
             <span class="badge text-bg-primary float-end">
@@ -39,4 +55,10 @@
       {% endfor %}
     </ul>
   </div>
+  <script>
+    $("#recipe-type-select").on("change", function(){
+      filter_class = $("#recipe-type-select").val()
+      
+    })
+  </script>
 {% endblock content %}
