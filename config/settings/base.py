@@ -81,6 +81,8 @@ THIRD_PARTY_APPS = [
 
 LOCAL_APPS = [
     "personal_website.users",
+    "recipebook",
+    "django_bootstrap_icons",
     # Your stuff: custom apps go here
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
