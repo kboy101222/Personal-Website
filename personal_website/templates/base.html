@@ -43,7 +43,7 @@
   </head>
   <body class="{% block bodyclass %}{% endblock bodyclass %}">
     {% block body %}
-      <div class="mb-1">
+      {% comment %} <div class="mb-1">
         <nav class="navbar navbar-expand-md navbar-light bg-light">
           <div class="container-fluid">
             <button class="navbar-toggler navbar-toggler-right"
@@ -89,7 +89,7 @@
             </div>
           </div>
         </nav>
-      </div>
+      </div> {% endcomment %}
       <div class="container">
         {% if messages %}
           {% for message in messages %}
@@ -104,7 +104,8 @@
         {% endif %}
         {% block main %}
           {% block content %}
-            <p>Use this document as a way to quick start any new project.</p>
+            <p>At some point this will be a website to collect my personal projects.</p>
+            <p>Until then, if you're here to open up a Christmas present, <span><a class="btn btn-success" href={% url recipebook %}>Click Here!</a></span>
           {% endblock content %}
         {% endblock main %}
       </div>
