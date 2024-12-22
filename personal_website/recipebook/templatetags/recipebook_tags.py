@@ -1,6 +1,33 @@
 from django import template
+from math import floor
 
 register = template.Library()
+
+measurement_formatting = {
+    "tsp": "teaspoon",
+    "tbsp": "tablespoon",
+    "floz": "fluid ounce",
+    "cup": "cup",
+    "pint": "pint",
+    "quart": "quart",
+    "gallon": "gallon",
+    "lbs": "pound",
+    "g": "gram",
+    "mL": "milliliter",
+    "amt": "",
+    "stick": "stick",
+    "not_set": "",
+}
+
+def checkPlural(amount, measure="not_set"):
+    if measure == "":
+        if amount > 1 or amount == 0:
+            return str(int(amount)) + " " + measurement_formatting[measure] + "s"
+        return str(int(amount))
+    else:
+        if amount > 1 or amount == 0:
+            return str(int(amount)) + " " + measurement_formatting[measure] + "s"
+        return str(int(amount))
 
 
 @register.filter
@@ -12,49 +39,18 @@ def format(value):
 @register.filter
 def measurement(value, arg):
     # arg is the amount so plurals can be formatted
-    measurement_formatting = {
-        "tsp": "teaspoon",
-        "tbsp": "tablespoon",
-        "floz": "fluid ounce",
-        "cup": "cup",
-        "pint": "pint",
-        "quart": "quart",
-        "gallon": "gallon",
-        "lbs": "pound",
-        "g": "gram",
-        "mL": "milliliter",
-        "amt": "",
-        "stick": "stick",
-        "not_set": "",
-    }
-    amount_fraction = arg.as_integer_ratio()
-    whole_num = int(amount_fraction[0]/amount_fraction[1])
-    if whole_num >= 1:
-        whole_num = str(whole_num) + " "
-    else:
-        whole_num = ""
-
-    amount = (
-        str(amount_fraction[0]) + "/" + str(amount_fraction[1])
-        if amount_fraction[1] != 1 and arg > 1
-        else str(amount_fraction[0])
-    )
+    
     if arg.is_integer():
-        return (
-            amount
-            + " "
-            + measurement_formatting[value]
-            + ("s" if arg > 1 and arg != 0 and value != "amt" else "")
-        )
+        return checkPlural(arg, measurement_formatting[value])
+    
+    amt_fraction = arg.as_integer_ratio()
+    whole_num = int(floor(amt_fraction[0] / amt_fraction[1]))
+    if whole_num == 0:
+        return amt_fraction[0] + "/" + amt_fraction[1] + " " + measurement_formatting[value]
     else:
-        return (
-            whole_num
-            + " "
-            + amount
-            + " "
-            + measurement_formatting[value]
-            + ("s" if arg > 1 and arg != 0 and value != "amt" else "")
-        )
+        numer = amt_fraction[0] - (whole_num * amt_fraction[1])
+        whole_num = str(whole_num) + " "
+        return whole_num + " " + str(numer) + "/" + str(amt_fraction[1]) + " " + measurement_formatting[value] + "s"
 
 
 @register.filter

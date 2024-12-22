@@ -20,6 +20,11 @@ services:
     ports:
       - '8000:8000'
     command: /start
+    develop:
+      watch:
+        - action: sync
+          path: .
+          target: /src/web
 
   postgres:
     build:
