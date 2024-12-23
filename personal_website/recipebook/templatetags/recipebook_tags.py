@@ -17,6 +17,7 @@ measurement_formatting = {
     "amt": "",
     "stick": "stick",
     "not_set": "",
+    "fluid ounce": "fluid ounce",
 }
 
 def checkPlural(amount, measure="not_set"):
