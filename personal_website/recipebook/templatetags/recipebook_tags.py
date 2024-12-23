@@ -18,6 +18,10 @@ measurement_formatting = {
     "stick": "stick",
     "not_set": "",
     "fluid ounce": "fluid ounce",
+    "tablespoon" : "tablespoon",
+    "pound" : "pound",
+    "gram" : "gram",
+    "milliliter" : "milliliter",
 }
 
 def checkPlural(amount, measure="not_set"):
