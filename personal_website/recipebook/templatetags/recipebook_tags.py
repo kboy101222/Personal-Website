@@ -22,7 +22,7 @@ measurement_formatting = {
 def checkPlural(amount, measure="not_set"):
     if measure == "":
         if amount > 1 or amount == 0:
-            return str(int(amount)) + " " + measurement_formatting[measure] + "s"
+            return str(int(amount)) + " "
         return str(int(amount))
     else:
         if amount > 1 or amount == 0:
