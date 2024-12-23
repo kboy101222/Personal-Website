@@ -46,7 +46,7 @@ def measurement(value, arg):
     amt_fraction = arg.as_integer_ratio()
     whole_num = int(floor(amt_fraction[0] / amt_fraction[1]))
     if whole_num == 0:
-        return amt_fraction[0] + "/" + amt_fraction[1] + " " + measurement_formatting[value]
+        return str(amt_fraction[0]) + "/" + str(amt_fraction[1]) + " " + measurement_formatting[value]
     else:
         numer = amt_fraction[0] - (whole_num * amt_fraction[1])
         whole_num = str(whole_num) + " "
